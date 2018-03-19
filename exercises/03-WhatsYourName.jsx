@@ -47,6 +47,7 @@ var React = require("react");
 //
 // Further reading on task #2: https://facebook.github.io/react/tips/if-else-in-JSX.html
 
+const HI = 'Hey there. Enter your name.'
 class WhatsYourName extends React.Component {
   // By default `this.state` is `null`. In `render` we are referring to
   // a specific element from the `state` object - `this.state.name`.
@@ -60,7 +61,7 @@ class WhatsYourName extends React.Component {
     // Properties object is called `props`. You can access it with `this.props`.
     // We won't use it in this exercise.
     super(props);
-    this.state = { name: "" };
+    this.state = { name: '' };
 
     // Warning! If we don't bind this method - we would not be able to update state.
     this.onNameChange = this.onNameChange.bind(this);
@@ -75,14 +76,17 @@ class WhatsYourName extends React.Component {
   // Hint: use `console.log` to check `event.target`. You will find text
   //       entered to the input there.
   onNameChange(event) {
-    // Huh... There's something wrong here...
-    this.setState({bad_attribute: "ChangeME!"});
+    this.setState({ name: event.target.value });
   }
 
   render() {
     return (
       <div>
-        <p>Hello {this.state.name}</p>
+        <p>
+          {(() => (
+            this.state.name.length === 0 ? HI : `Hello ${this.state.name}`
+          ))()}
+        </p>
         <input type="text" name="name" onChange={this.onNameChange} />
       </div>
     );
